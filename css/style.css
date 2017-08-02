@@ -87,6 +87,11 @@ a {
     text-decoration: none;
     color: #FF5733;
 }
+
+#email:hover {
+    text-decoration: none;
+    color: #85C1E9;
+}
 .dg.ac {
   z-index: 2;
 }
@@ -98,7 +103,6 @@ a {
     display: inline;
     display: inline-block;
     color:white;
-    height: 20px;
 }
 
 .footer {
