@@ -1,0 +1,113 @@
+body,a {
+   font-family: 'Lato', sans-serif;
+    padding: 0;
+    margin: 0;
+    background: #2b2b2b;
+    overflow: hidden;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+         -o-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.wrapper {
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    margin-top: -10em; 
+
+}
+a {
+        color: #e2e2de;
+            text-decoration: none;
+            background-color:rgba(0,0,0,0);
+
+
+}
+#Name {
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    letter-spacing: 2px;
+    z-index: 0;
+    width: 100%;
+    text-shadow: 0 -1px 0 #d3d3d1;
+}
+
+#intro {
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    z-index: 0;
+    width: 100%;
+}
+
+.hidden {
+    color: #2b2b2b;
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 2px;
+    z-index: 0;
+    width: 100%;
+}
+
+#links{
+    margin-top: 10px;
+    display: block;
+    color: #e2e2de;
+    font-size: 32px;
+    text-align: center;
+    letter-spacing: 2px;
+    position: static ;
+    z-index: 0;
+    width: 100%;
+    
+}
+#git:hover {
+    text-decoration: none;
+    color: #33FD30;
+}
+#fb:hover {
+    text-decoration: none;
+    color: #85C1E9;
+}
+#ld:hover {
+    text-decoration: none;
+    color: #F882DC;
+}
+#cv:hover {
+    text-decoration: none;
+    color: #FF5733;
+}
+.dg.ac {
+  z-index: 2;
+}
+
+.inline {
+    display: inline;
+}
+#emojii{
+    display: inline;
+    display: inline-block;
+    color:white;
+    height: 20px;
+}
+
+.footer {
+    text-align: center;
+    color:white;
+    opacity: 0.5;
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+}
