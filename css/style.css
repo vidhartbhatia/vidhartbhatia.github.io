@@ -159,19 +159,6 @@ hr{
     align-content: center;
 }
 
-#home{
-        content:  "files/home.png"
-    height: 40px;
-    width:40px;
-    float:left;
-    margin-right:10px;
-}
-#home:hover {
-    content:  "files/home-blue.png"
-    height:44px;
-    width:44px;
-
-}
 #title {
     color: white;
     top:10%;
