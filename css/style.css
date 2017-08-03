@@ -48,6 +48,8 @@ a {
     letter-spacing: 2px;
     z-index: 0;
     width: 100%;
+    mix-blend-mode: difference;
+
 }
 
 .hidden {
@@ -87,6 +89,10 @@ a {
     text-decoration: none;
     color: #FF5733;
 }
+#hm:hover {
+    text-decoration: none;
+    color: #F7DC6F;
+}
 
 #email:hover {
     text-decoration: none;
@@ -114,4 +120,66 @@ a {
     left: 0;
     right: 0;
     height: 30px;
+}
+
+/*projects*/
+.project {
+    color: white;
+    height: 200px;
+    width: 90%;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project h1 {    
+    margin-top: 0px;
+    margin-left: 0px;
+    overflow:auto;
+    display:block;
+    font-size: 20px;
+}
+.project p {    
+    margin-left: 10px;
+    overflow:auto;
+    display:block;
+    font-size: 12px;
+}
+.roundrect {   
+margin-right: 10px;
+float: left;
+vertical-align: text-top;
+border-radius: 15px;
+width:300px;
+height: 200px;
+}
+
+hr{
+    width: 90%;
+    align-content: center;
+}
+
+#home{
+        content:  "files/home.png"
+    height: 40px;
+    width:40px;
+    float:left;
+    margin-right:10px;
+}
+#home:hover {
+    content:  "files/home-blue.png"
+    height:44px;
+    width:44px;
+
+}
+#title {
+    color: white;
+    top:10%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.wrapper-proj {
+    position: fixed;
+    width: 100%;
 }
