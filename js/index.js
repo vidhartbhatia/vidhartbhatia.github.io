@@ -487,7 +487,7 @@ function draw() {
             document.getElementById("emojii").innerHTML = emojis[ Math.floor( Math.random() * emojis.length ) ];
 
 }
-setInterval(draw, 200);
+//setInterval(draw, 200);
     var loop = function() {
         brush.render(context, mouseX, mouseY);
         
