@@ -126,12 +126,17 @@ x:hover:before {content:"Call me Vids!"}
     text-decoration: none;
     color: #F8C471;
 }
+#tr {
+    color: #2b2b2b;
+    text-decoration: none;
+}
 .dg.ac {
   z-index: 2;
 }
 
 .inline {
     display: inline;
+    font-size: 18px;
 }
 #emojii{
     display: inline;
@@ -147,11 +152,12 @@ x:hover:before {content:"Call me Vids!"}
     bottom: 0;
     left: 0;
     right: 0;
-    height: 30px;
+    height: 40px;
 }
 
 /*projects*/
 .project {
+    font-size: 16px;
     color: white;
     min-height: 200px;
     width: 90%;
