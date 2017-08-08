@@ -52,7 +52,6 @@ var Brush = (function() {
 			
             this._resetTip();
 
-            // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
             this._strokeId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 var r, v;
                 r = Math.random() * 16 | 0;
@@ -311,12 +310,8 @@ var Brush = (function() {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
-            brush.color = randomColor();
-         
-        
-      
-            brush.size = random(51, 5) | 0;
-           
+        brush.color = randomColor();
+        brush.size = random(51, 15) | 0;
         
         brush.startStroke(mouseX, mouseY);
     }
@@ -345,7 +340,7 @@ var Brush = (function() {
             brush.color = randomColor();
       
        
-            brush.size = random(51, 5) | 0;
+            brush.size = random(51, 20) | 0;
               
         brush.startStroke(mouseX, mouseY);
     }
@@ -411,7 +406,7 @@ Colors.random = function() {
     console.log(result);
     return result;
 };
-        function randomColor() { return Colors.random();}
+    function randomColor() { return Colors.random();}
     // function randomColor() {
     //     var r = random(256) | 0,
     //         g = random(256) | 0,
@@ -427,18 +422,6 @@ Colors.random = function() {
         }
         return Math.random() * (max - min) + min;
     }
-
-
-    // GUI Control
-
-    // control = {
-    //     isRandomColor: true,
-    //     isRandomSize:  false,
-    //     clear: function(e) {
-    //         context.clearRect(0, 0, canvas.width, canvas.height);
-    //         brush.dispose();
-    //     }
-    // };
 
 
     // Init
@@ -463,21 +446,6 @@ Colors.random = function() {
     window.addEventListener('touchend', touchEnd, false);
 
 
-    // GUI
-
-    // gui = new dat.GUI();
-    // guiColorCtr = gui.addColor(brush, 'color').name('Color').onChange(function() {
-    //     control.isRandomColor = false;
-    //     guiIsRandColorCtr.updateDisplay();
-    // });
-    // guiSizeCtr = gui.add(brush, 'size', 5, 50).name('Size');
-    // gui.add(brush, 'inkAmount', 1, 30).name('Ink Amount');
-    // gui.add(brush, 'splashing').name('Splashing');
-    // gui.add(brush, 'dripping').name('Dripping');
-    // guiIsRandColorCtr = gui.add(control, 'isRandomColor').name('Random Color');
-    // gui.add(control, 'isRandomSize').name('Random Size');
-    // gui.add(control, 'clear').name('Clear');
-    // gui.close();
 
 
     // Start Update
@@ -497,13 +465,3 @@ function draw() {
 
 })();
 
-
-//my additions
-
-		// function animate() {
-		// 	setTimeout( function () {
-		// 		document.body.textContent = emojis[ Math.floor( Math.random() * emojis.length ) ];
-		// 		requestAnimationFrame( animate );
-		// 	}, 100 )
-		// }
-		// requestAnimationFrame( animate );
