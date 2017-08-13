@@ -66,12 +66,14 @@ a {
 }
 
 #cmu:hover{
-  background: url(../files/cmu.png) no-repeat center center;
-	background-size: cover;
-	color: #fff;
+     background: url(../files/cmu.png) repeat center center;
+    background-repeat: repeat;
+    background-size: cover;
+
+    color: #fff;
+    display: inline;
 	-webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
-    font-size: 35px;
 }
 
 x:hover span {display:none}
