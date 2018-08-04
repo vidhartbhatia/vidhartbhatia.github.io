@@ -1,22 +1,22 @@
 /**
  * requestAnimationFrame
  */
-window.requestAnimationFrame = (function(){
-    return  window.requestAnimationFrame       ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame    ||
-            window.oRequestAnimationFrame      ||
-            window.msRequestAnimationFrame     ||
-            function (callback) {
-                window.setTimeout(callback, 1000 / 60);
-            };
+window.requestAnimationFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 1000 / 60);
+        };
 })();
 
 
 /**
  * Brush
  */
-var Brush = (function() {
+var Brush = (function () {
 
     function Brush(x, y, color, size, inkAmount) {
         this.x = x || 0;
@@ -32,27 +32,27 @@ var Brush = (function() {
     Brush.prototype = {
         _SPLASHING_BRUSH_SPEED: 75,
 
-        x:          0,
-        y:          0,
-        color:      '#000',
-        size:       35,
-        inkAmount:  7,
-        splashing:  true,
-        dripping:   true,
+        x: 0,
+        y: 0,
+        color: '#000',
+        size: 35,
+        inkAmount: 7,
+        splashing: true,
+        dripping: true,
         _latestPos: null,
-        _strokeId:  null,
-        _drops:     null,
+        _strokeId: null,
+        _drops: null,
 
-        isStroke: function() {
+        isStroke: function () {
             return Boolean(this._strokeId);
         },
 
-        startStroke: function() {
+        startStroke: function () {
             if (this.isStroke()) return;
-			
+
             this._resetTip();
 
-            this._strokeId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            this._strokeId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r, v;
                 r = Math.random() * 16 | 0;
                 v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -60,11 +60,11 @@ var Brush = (function() {
             });
         },
 
-        endStroke: function() {
+        endStroke: function () {
             this._strokeId = this._latestPos = null;
         },
 
-        render: function(ctx, x, y) {
+        render: function (ctx, x, y) {
             var isStroke = this.isStroke(),
                 dx, dy,
                 i, len;
@@ -76,7 +76,7 @@ var Brush = (function() {
             this.y = y;
 
             if (this._drops.length) {
-                var drops  = this._drops,
+                var drops = this._drops,
                     drop,
                     sizeSq = this.size * this.size;
 
@@ -144,17 +144,17 @@ var Brush = (function() {
             }
         },
 
-        dispose: function() {
+        dispose: function () {
             this._tip.length = this._drops.length = 0;
         },
 
-        _resetTip: function() {
+        _resetTip: function () {
             var tip = this._tip = [],
                 rad = this.size * 0.5,
                 x0, y0, a0, x1, y1, a1, cv, sv,
                 i, len;
 
-            a1  = Math.PI * 2 * Math.random();
+            a1 = Math.PI * 2 * Math.random();
             len = rad * rad * Math.PI / this.inkAmount | 0;
             if (len < 1) len = 1;
 
@@ -188,24 +188,27 @@ var Brush = (function() {
         this.inkAmount = inkAmount;
         this.color = color;
 
-        this._latestPos = { x: this.x, y: this.y };
+        this._latestPos = {
+            x: this.x,
+            y: this.y
+        };
     }
 
     Hair.prototype = {
-        x:          0,
-        y:          0,
-        inkAmount:  7,
-        color:      '#000',
+        x: 0,
+        y: 0,
+        inkAmount: 7,
+        color: '#000',
         _latestPos: null,
 
-        render: function(ctx, offsetX, offsetY, offsetLength) {
+        render: function (ctx, offsetX, offsetY, offsetLength) {
             this._latestPos.x = this.x;
             this._latestPos.y = this.y;
             this.x += offsetX;
             this.y += offsetY;
 
             var per = offsetLength ? this.inkAmount / offsetLength : 0;
-            if      (per > 1) per = 1;
+            if (per > 1) per = 1;
             else if (per < 0) per = 0;
 
             ctx.save();
@@ -233,20 +236,23 @@ var Brush = (function() {
         this.strokeId = strokeId;
 
         this.life = this.size * 1.5;
-        this._latestPos = { x: this.x, y: this.y };
+        this._latestPos = {
+            x: this.x,
+            y: this.y
+        };
     }
 
     Drop.prototype = {
-        x:          0,
-        y:          0,
-        size:       7,
-        color:      '#000',
-        strokeId:   null,
-        life:       0,
+        x: 0,
+        y: 0,
+        size: 7,
+        color: '#000',
+        strokeId: null,
+        life: 0,
         _latestPos: null,
         _xOffRatio: 0,
 
-        render: function(ctx) {
+        render: function (ctx) {
             if (Math.random() < 0.03) {
                 this._xOffRatio += 0.06 * Math.random() - 0.03;
             } else if (Math.random() < 0.1) {
@@ -280,20 +286,22 @@ var Brush = (function() {
 
 // Initialize
 
-(function() {
+(function () {
 
     // Vars
 
     var canvas, context,
         centerX, centerY,
-        mouseX = 0, mouseY = 0, isMouseDown = true,
+        mouseX = 0,
+        mouseY = 0,
+        isMouseDown = true,
         brush,
         gui, control, guiColorCtr, guiSizeCtr, guiIsRandColorCtr;
 
     // Event Listeners
 
     function resize(e) {
-        canvas.width  = window.innerWidth;
+        canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         centerX = canvas.width * 0.5;
         centerY = canvas.height * 0.5;
@@ -309,104 +317,107 @@ var Brush = (function() {
     function mouseDown(e) {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        
+
         brush.color = randomColor();
         brush.size = random(51, 15) | 0;
-        
+
         brush.startStroke(mouseX, mouseY);
     }
 
     function mouseUp(e) {
         brush.endStroke();
     }
-	
-	
-	var touched = false;
+
+
+    var touched = false;
 
     function touchMove(e) {
-		var t = e.touches[0];
+        var t = e.touches[0];
         mouseX = t.clientX;
         mouseY = t.clientY;
     }
 
     function touchStart(e) {
-		if (touched) return;
-		touched = true;
-		
-		var t = e.touches[0];
+        if (touched) return;
+        touched = true;
+
+        var t = e.touches[0];
         mouseX = t.clientX;
         mouseY = t.clientY;
-       
-            brush.color = randomColor();
-      
-       
-            brush.size = random(51, 20) | 0;
-              
+
+        brush.color = randomColor();
+
+
+        brush.size = random(51, 20) | 0;
+
         brush.startStroke(mouseX, mouseY);
     }
 
     function touchEnd(e) {
-		touched = false;
+        touched = false;
         brush.endStroke();
     }
 
     // Helpers
     Colors = {};
-Colors.names = {
-    aqua: "#00ffff",
-    //azure: "#f0ffff",
-    //beige: "#f5f5dc",
-    //black: "#000000",
-    blue: "#0000ff",
-    brown: "#a52a2a",
-    cyan: "#00ffff",
-    darkblue: "#00008b",
-    darkcyan: "#008b8b",
-    darkgrey: "#a9a9a9",
-    darkgreen: "#006400",
-    darkkhaki: "#bdb76b",
-    darkmagenta: "#8b008b",
-    darkolivegreen: "#556b2f",
-    darkorange: "#ff8c00",
-    darkorchid: "#9932cc",
-    darkred: "#8b0000",
-    darksalmon: "#e9967a",
-    darkviolet: "#9400d3",
-    fuchsia: "#ff00ff",
-    gold: "#ffd700",
-    green: "#008000",
-    indigo: "#4b0082",
-   // khaki: "#f0e68c",
-    lightblue: "#add8e6",
-    //lightcyan: "#e0ffff",
-    lightgreen: "#90ee90",
-    lightgrey: "#d3d3d3",
-    lightpink: "#ffb6c1",
-    //lightyellow: "#ffffe0",
-    lime: "#00ff00",
-    magenta: "#ff00ff",
-    maroon: "#800000",
-    //navy: "#000080",
-    olive: "#808000",
-    orange: "#ffa500",
-    pink: "#ffc0cb",
-    purple: "#800080",
-    violet: "#800080",
-    red: "#ff0000",
-    //silver: "#c0c0c0",
-    //white: "#ffffff",
-    yellow: "#ffff00"
-};
-Colors.random = function() {
-    var result;
-    var count = 0;
-    for (var prop in this.names)
-        if (Math.random() < 1/++count)
-           result = prop;
-    console.log(result);
-    return result;
-};
-    function randomColor() { return Colors.random();}
+    Colors.names = {
+        aqua: "#00ffff",
+        //azure: "#f0ffff",
+        //beige: "#f5f5dc",
+        //black: "#000000",
+        blue: "#0000ff",
+        brown: "#a52a2a",
+        cyan: "#00ffff",
+        darkblue: "#00008b",
+        darkcyan: "#008b8b",
+        darkgrey: "#a9a9a9",
+        darkgreen: "#006400",
+        darkkhaki: "#bdb76b",
+        darkmagenta: "#8b008b",
+        darkolivegreen: "#556b2f",
+        darkorange: "#ff8c00",
+        darkorchid: "#9932cc",
+        darkred: "#8b0000",
+        darksalmon: "#e9967a",
+        darkviolet: "#9400d3",
+        fuchsia: "#ff00ff",
+        gold: "#ffd700",
+        green: "#008000",
+        indigo: "#4b0082",
+        // khaki: "#f0e68c",
+        lightblue: "#add8e6",
+        //lightcyan: "#e0ffff",
+        lightgreen: "#90ee90",
+        lightgrey: "#d3d3d3",
+        lightpink: "#ffb6c1",
+        //lightyellow: "#ffffe0",
+        lime: "#00ff00",
+        magenta: "#ff00ff",
+        maroon: "#800000",
+        //navy: "#000080",
+        olive: "#808000",
+        orange: "#ffa500",
+        pink: "#ffc0cb",
+        purple: "#800080",
+        violet: "#800080",
+        red: "#ff0000",
+        //silver: "#c0c0c0",
+        //white: "#ffffff",
+        yellow: "#ffff00"
+    };
+    Colors.random = function () {
+        var result;
+        var count = 0;
+        for (var prop in this.names)
+            if (Math.random() < 1 / ++count)
+                result = prop;
+        console.log(result);
+        return result;
+    };
+
+    function randomColor() {
+        return Colors.random();
+    }
     // function randomColor() {
     //     var r = random(256) | 0,
     //         g = random(256) | 0,
@@ -449,19 +460,19 @@ Colors.random = function() {
 
 
     // Start Update
-var emojis = '😀 😬 😁 😂 😃 😄 😅 😆 😇 😉 😊 🙂 🙃 😋 😌 😍 😘 😗 😙 😚 😜 😝 😛 🤑 🤓 😎 🤗 😏 😶 😐 😑 😒 🙄 🤔 😳 😞 😟 😠 😡 😔 😕 🙁 ☹️ 😣 😖 😫 😩 😤 😮 😱 😨 😰 😯 😦 😧 😢 😥 😪 😓 😭 😵 😲 🤐 😷 🤒 🤕 😴'.split( ' ' );
-function draw() {
-    // Drawing code goes here
-            document.getElementById("emojii").innerHTML = emojis[ Math.floor( Math.random() * emojis.length ) ];
+    var emojis = '😀 😬 😁 😂 😃 😄 😅 😆 😇 😉 😊 🙂 🙃 😋 😌 😍 😘 😗 😙 😚 😜 😝 😛 🤑 🤓 😎 🤗 😏 😶 😐 😑 😒 🙄 🤔 😳 😞 😟 😠 😡 😔 😕 🙁 ☹️ 😣 😖 😫 😩 😤 😮 😱 😨 😰 😯 😦 😧 😢 😥 😪 😓 😭 😵 😲 🤐 😷 🤒 🤕 😴'.split(' ');
 
-}
-//setInterval(draw, 200);
-    var loop = function() {
+    function draw() {
+        // Drawing code goes here
+        document.getElementById("emojii").innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+    }
+    //setInterval(draw, 200);
+    var loop = function () {
         brush.render(context, mouseX, mouseY);
-        
+
         requestAnimationFrame(loop);
     };
     loop();
 
 })();
-
